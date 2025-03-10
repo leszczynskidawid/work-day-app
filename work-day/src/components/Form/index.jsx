@@ -1,11 +1,10 @@
-import { FormControl, Typography } from "@mui/material";
+import { FormControl } from "@mui/material";
 import React from "react";
-import { useForm, FormProvider } from "react-hook-form";
+import { FormProvider } from "react-hook-form";
 import { theme } from "../../theme/theme";
 import { CustomTypography } from "../CustomTypography";
 
 const Form = ({ children, onSubmit, methods, title }) => {
-  console.log("methods", methods);
   return (
     <FormProvider {...methods}>
       <FormControl

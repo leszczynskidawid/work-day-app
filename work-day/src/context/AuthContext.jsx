@@ -1,6 +1,6 @@
 // AuthContext.js
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { firebaseActions } from "../firebase/firebase-actions/auth";
+import { firebaseActions } from "../firebase/firebase-actions/functions";
 
 const AuthContext = createContext();
 
@@ -23,9 +23,6 @@ export function AuthProvider({ children }) {
       setUser(userData);
       localStorage.setItem("user", JSON.stringify(userData));
       return true;
-    } catch (error) {
-      console.error("Błąd logowania:", error.message);
-      throw error;
     } finally {
       setLoading(false);
     }

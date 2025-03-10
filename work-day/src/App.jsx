@@ -1,14 +1,17 @@
-import { CircularProgress } from "@mui/material";
 import LoginForm from "./components/LoginForm";
-import { AuthProvider, useAuth } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext";
 import { SCircuralProgress } from "./components/CircuralProgress";
+
+import { ToastProvider, useToast } from "./context/ToastContext";
 
 function App() {
   return (
-    <AuthProvider>
-      <SCircuralProgress />
-      <LoginForm title={"Zaloguj się"} />
-    </AuthProvider>
+    <ToastProvider>
+      <AuthProvider>
+        <SCircuralProgress />
+        <LoginForm title={"Zaloguj się"} />
+      </AuthProvider>
+    </ToastProvider>
   );
 }
 

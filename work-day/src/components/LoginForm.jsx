@@ -3,8 +3,9 @@ import { CustomButton } from "./Button";
 import Form from "./Form";
 import { CustomTextField } from "./TexFields";
 import { useAuth } from "../context/AuthContext";
-import { CircularProgress, Typography } from "@mui/material";
 import { CustomTypography } from "./CustomTypography";
+import { useToast } from "../context/ToastContext";
+import { errorHandler } from "../firebase/firebase-actions/errorhandler";
 
 const LoginForm = () => {
   const methods = useForm({
@@ -15,12 +16,21 @@ const LoginForm = () => {
   });
 
   const { login, loading, user } = useAuth();
+  const { showToast } = useToast();
 
   const onSubmit = async () => {
-    const card = methods.getValues().cardNumber;
-    const password = methods.getValues().password;
+    try {
+      const card = methods.getValues().cardNumber;
+      const password = methods.getValues().password;
 
-    await login(card, password);
+      await login(card, password);
+      showToast("Zalogowano pomyślnie!", "success");
+    } catch (error) {
+      console.log(error.message);
+      const errorMessage = errorHandler(error.message);
+      showToast(errorMessage, "error");
+      methods.reset();
+    }
   };
 
   const cardNumberRules = {
@@ -52,6 +62,10 @@ const LoginForm = () => {
         <CustomButton text={"zaloguj"} type="submit" />
       </Form>
       <CustomTypography text={user?.IdCard} />
+      <CustomButton
+        onClick={() => showToast("asdasdad", "error")}
+        text={"open toast"}
+      />
     </>
   );
 };

@@ -11,14 +11,14 @@ export const firebaseActions = {
       );
       const querySnapshot = await getDocs(userQuery);
       if (querySnapshot.empty) {
-        throw new Error("nie znaleźono użytkownika");
+        throw new Error("not-found");
       }
       const userDoc = querySnapshot.docs[0];
       const userData = userDoc.data();
 
       return userData;
     } catch (error) {
-      throw new Error(error, "Błąd logowania ");
+      throw new Error(error);
     }
   },
 };
