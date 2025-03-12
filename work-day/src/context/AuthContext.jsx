@@ -9,11 +9,23 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const savedUser = JSON.parse(localStorage.getItem("user"));
-    if (savedUser) {
-      setUser(savedUser);
-    }
-    setLoading(false);
+    const checkAuthState = async () => {
+      try {
+        const savedUser = JSON.parse(localStorage.getItem("user"));
+        if (savedUser) {
+          // Możesz dodać dodatkową weryfikację tokena tutaj
+          setUser(savedUser);
+          console.log("User logged in", savedUser);
+        }
+      } catch (error) {
+        console.error("Error checking auth state:", error);
+        logout();
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkAuthState();
   }, []);
 
   const login = async (cardId, password) => {
@@ -34,7 +46,9 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
+    <AuthContext.Provider
+      value={{ user, login, logout, loading, isAuthenticated: !!user }}
+    >
       {children}
     </AuthContext.Provider>
   );

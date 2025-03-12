@@ -16,9 +16,10 @@ const Form = ({ children, onSubmit, methods, title }) => {
           border: `2px solid ${theme.palette.primary.light}`,
           borderRadius: "10px",
           display: "flex",
-          justifyContent: "center",
-          maxWidth: "80vw",
-          gap: "10px",
+          justifyContent: "space-between",
+          minWidth: "90%",
+          minHeight: "50vh",
+          boxShadow: "0px 0px 50px 0px rgba(20, 59, 177, 0.75)",
         }}
       >
         <CustomTypography variant={"h5"} text={title} />

@@ -1,15 +1,14 @@
-import LoginForm from "./components/LoginForm";
 import { AuthProvider } from "./context/AuthContext";
 import { SCircuralProgress } from "./components/CircuralProgress";
-
-import { ToastProvider, useToast } from "./context/ToastContext";
+import { ToastProvider } from "./context/ToastContext";
+import MyRoutes from "./Routes/routes";
 
 function App() {
   return (
     <ToastProvider>
       <AuthProvider>
         <SCircuralProgress />
-        <LoginForm title={"Zaloguj się"} />
+        <MyRoutes />
       </AuthProvider>
     </ToastProvider>
   );

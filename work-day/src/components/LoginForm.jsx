@@ -3,9 +3,9 @@ import { CustomButton } from "./Button";
 import Form from "./Form";
 import { CustomTextField } from "./TexFields";
 import { useAuth } from "../context/AuthContext";
-import { CustomTypography } from "./CustomTypography";
 import { useToast } from "../context/ToastContext";
 import { errorHandler } from "../firebase/firebase-actions/errorhandler";
+import { useNavigate } from "react-router";
 
 const LoginForm = () => {
   const methods = useForm({
@@ -17,6 +17,7 @@ const LoginForm = () => {
 
   const { login, loading, user } = useAuth();
   const { showToast } = useToast();
+  const navigate = useNavigate();
 
   const onSubmit = async () => {
     try {
@@ -25,6 +26,7 @@ const LoginForm = () => {
 
       await login(card, password);
       showToast("Zalogowano pomyślnie!", "success");
+      navigate("/home");
     } catch (error) {
       console.log(error.message);
       const errorMessage = errorHandler(error.message);
@@ -61,11 +63,6 @@ const LoginForm = () => {
         />
         <CustomButton text={"zaloguj"} type="submit" />
       </Form>
-      <CustomTypography text={user?.IdCard} />
-      <CustomButton
-        onClick={() => showToast("asdasdad", "error")}
-        text={"open toast"}
-      />
     </>
   );
 };
